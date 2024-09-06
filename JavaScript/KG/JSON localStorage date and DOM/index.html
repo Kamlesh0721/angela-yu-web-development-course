@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON,Local-Storage,Date & DOM</title>
+    <style>
+        #counter_display {
+            width: 50px;
+            height: 50px;
+        }
+
+        .js-odd {
+            background-color: orangered;
+        }
+
+        .js-even {
+            background-color: greenyellow;
+        }
+
+        .js-zero {
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        Good Morning
+    </h1>
+    <button id="counter_display" class="" onclick="counter()">0</button>
+
+    <script>
+        let date = new Date();
+        let currHour = date.getHours();
+        if (currHour < 12) {
+            document.querySelector("h1").innerText = "Good Morning";
+        } else if (currHour < 18) {
+            document.querySelector("h1").innerText = "Good Afternoon";
+        } else {
+            document.querySelector("h1").innerText = "Good Night";
+        }
+
+
+        let name = prompt("Enter Name : ");
+        let nameElement = document.createElement("h1");
+        nameElement.innerText = " " + name;
+        document.querySelector("h1").appendChild(nameElement);
+        
+        // localStorage.clear();
+
+        let count = localStorage.getItem("count") || "0";
+        localStorage.setItem("count", count);
+        document.getElementById("counter_display").innerText = `${localStorage.getItem("count")}`;
+        updateColor();
+        function counter() {
+            count_value = localStorage.getItem("count");
+            count_value++;
+            localStorage.setItem("count", `${count_value}`);
+            document.getElementById("counter_display").innerText = `${localStorage.getItem("count")}`;
+            updateColor();
+
+        }
+
+        function updateColor() {
+            document.getElementById("counter_display").classList.remove("js-zero");
+            document.getElementById("counter_display").classList.remove("js-odd");
+            document.getElementById("counter_display").classList.remove("js-even");
+
+            let counter = localStorage.getItem("count");
+            if (counter == '0') {
+                document.getElementById("counter_display").classList.add("js-zero");
+            }
+
+            else if (counter % 2 == 0) {
+
+                document.getElementById("counter_display").classList.add("js-even");
+            }
+            else {
+
+                document.getElementById("counter_display").classList.add("js-odd");
+            }
+        }
+    </script>
+</body>
+
+</html>
